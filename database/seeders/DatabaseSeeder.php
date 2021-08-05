@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(5)->create();
+        \App\Models\User::factory(50)->create();
 
     	Category::create([
     		'category' => 'Cyber Security'
@@ -42,10 +42,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::create([
-         'email' => 'rilozpedia20@gmail.com',
-         'password' => Hash::make('rilozpedia20@gmail.com'),
-         'id_role' => 1,
-         'id_category' => 2,
+            'name' => 'Hakim Asrori',
+            'nim' => '2003071',
+            'email' => 'rilozpedia20@gmail.com',
+            'password' => Hash::make('rilozpedia20@gmail.com'),
+            'id_role' => 1,
+            'id_category' => 2,
+            'id_class' => 1
         ]);
     }
 }

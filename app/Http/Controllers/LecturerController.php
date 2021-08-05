@@ -28,7 +28,7 @@ class LecturerController extends Controller
                 'id' => $u->id,
                 'name' => $u->name,
                 'email' => $u->email,
-                'whatsapp' => '<a href="//wa.me/'.$u->whatsapp.'">'.$u->whatsapp.'</a>',
+                'whatsapp' => '<a href="//wa.me/'.$u->whatsapp.'" target="_blank">'.$u->whatsapp.'</a>',
                 'class' => $u->classes
             );
         }

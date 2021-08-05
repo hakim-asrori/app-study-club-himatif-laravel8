@@ -15,4 +15,9 @@ class User extends Model
 	{
 		return $this->hasOne(Classes::class, 'id', 'id_class');
 	}
+
+	public function category()
+	{
+		return $this->hasOne(Category::class, 'id', 'id_category');
+	}
 }

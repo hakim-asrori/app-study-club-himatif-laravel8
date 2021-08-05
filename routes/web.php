@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\StudentController;
 
 
 /*
@@ -58,3 +59,9 @@ Route::get('/lecturer/user', [LecturerController::class, 'user'])->middleware('o
 Route::post('/lecturer/add', [LecturerController::class, 'add'])->middleware('otentikasi');
 Route::post('/lecturer/store', [LecturerController::class, 'store'])->middleware('otentikasi');
 Route::post('/lecturer/del', [LecturerController::class, 'del'])->middleware('otentikasi');
+
+
+// Student
+Route::get('/student', [StudentController::class, 'index'])->middleware('otentikasi');
+Route::get('/student/get', [StudentController::class, 'get'])->middleware('otentikasi');
+Route::delete('/student', [StudentController::class, 'destroy'])->middleware('otentikasi');
