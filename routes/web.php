@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\LecturerController;
 
 
 /*
@@ -49,3 +50,11 @@ Route::get('/class', [ClassController::class, 'index'])->middleware('otentikasi'
 Route::get('/class/get', [ClassController::class, 'get'])->middleware('otentikasi');
 Route::post('/class/add', [ClassController::class, 'add'])->middleware('otentikasi');
 Route::post('/class/del', [ClassController::class, 'del'])->middleware('otentikasi');
+
+// Lecturer
+Route::get('/lecturer', [LecturerController::class, 'index'])->middleware('otentikasi');
+Route::get('/lecturer/get', [LecturerController::class, 'get'])->middleware('otentikasi');
+Route::get('/lecturer/user', [LecturerController::class, 'user'])->middleware('otentikasi');
+Route::post('/lecturer/add', [LecturerController::class, 'add'])->middleware('otentikasi');
+Route::post('/lecturer/store', [LecturerController::class, 'store'])->middleware('otentikasi');
+Route::post('/lecturer/del', [LecturerController::class, 'del'])->middleware('otentikasi');

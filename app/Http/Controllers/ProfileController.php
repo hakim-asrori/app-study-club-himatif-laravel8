@@ -25,10 +25,15 @@ class ProfileController extends Controller
 
 	public function update(Request $request)
 	{
+		$request->validate([
+			'nim' => 'required|unique:Users,nim',
+		]);
+
 		$user = User::where('email', Session::get('email'))->first();
 		User::where('email', Session::get('email'))->update([
 			'name' => $request->name,
 			'nim' => $request->nim,
+			'whatsapp' => $request->whatsapp,
 			'id_class' => $request->class,
 		]);
 

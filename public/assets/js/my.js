@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 	$('#mhs').autocomplete({
-		source: "/ajax/lecturerusers",
+		source: "/lecturer/user",
 	});
 
 	$('#mhs').change(function()

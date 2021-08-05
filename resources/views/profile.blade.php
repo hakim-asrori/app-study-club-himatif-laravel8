@@ -15,6 +15,15 @@
 		</ol>
 	</div>
 </div>
+@if ($errors->any())
+<div class="alert alert-danger">
+	<ul>
+		@foreach ($errors->all() as $error)
+		<li>{{ $error }}</li>
+		@endforeach
+	</ul>
+</div>
+@endif
 <div class="card">
 	<div class="card-body">
 		<div class="row">
@@ -29,11 +38,15 @@
 					@method('patch')
 					<div class="form-group">
 						<label for="nim">NIM</label>
-						<input type="number" class="form-control" value="{{ $user->nim }}" name="nim">
+						<input type="number" class="form-control" value="{{ old('nim') ? old('nim') : $user->nim }}" name="nim">
 					</div>
 					<div class="form-group">
 						<label for="name">Nama Lengkap</label>
-						<input type="text" class="form-control" value="{{ $user->name }}" name="name">
+						<input type="text" class="form-control" value="{{ old('nim') ? old('name') : $user->name }}" name="name">
+					</div>
+					<div class="form-group">
+						<label for="whatsapp">No. Whatsapp</label>
+						<input type="text" class="form-control" value="{{ old('nim') ? old('whatsapp') : $user->whatsapp }}" name="whatsapp">
 					</div>
 					<div class="form-group">
 						<label for="class">Kelas</label>

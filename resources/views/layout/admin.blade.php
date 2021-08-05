@@ -72,7 +72,7 @@
                     <a href="/class" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">class</i>Class</a>
                 </li>
                 <li style="">
-                    <a href="/lecturer" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">supervisor_account</i>Lecturer</a>
+                    <a href="/lecturer" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">supervisor_account</i>Lecturers</a>
                 </li>
                 <li style="">
                     <a href="/student" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">people</i>Students</a>
@@ -84,7 +84,7 @@
                     <a href="/learning" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">dns</i>Learning</a>
                 </li>
                 <li style="">
-                    <a href="/tasks" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">view_list</i>Tasks</a>
+                    <a href="/task" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">view_list</i>Tasks</a>
                 </li>
                 <li style="">
                     <a href="/leaderboard" class="waves-effect "><i class="fa fa-fw material-icons" aria-hidden="true">emoji_events</i>Leaderboard</a>
