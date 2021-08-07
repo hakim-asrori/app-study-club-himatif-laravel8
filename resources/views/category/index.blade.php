@@ -1,8 +1,14 @@
 @extends('template')
 
-@section('title', 'Class')
+@section('title', 'Category')
 
 @section('content')
+
+<style>
+	.edit-mode {
+		border: 1px solid black;
+	}
+</style>
 
 <div class="row bg-title">
 	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -23,8 +29,8 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="form-group">
-					<label for="class">Add @yield('title')</label>
-					<input type="text" id="class" class="form-control" placeholder="Format : D3TI.1C">
+					<label for="category">Add Category</label>
+					<input type="text" id="category" class="form-control">
 				</div>
 				<button id="add" class="btn btn-success">Add</button>
 			</div>
@@ -37,8 +43,8 @@
 					<table class="table table-bordered table-hover" id="dataTable">
 						<thead>
 							<tr>
-								<th>Class</th>
-								<th>Student</th>
+								<th>Category</th>
+								<th>Follower</th>
 								<th>Options</th>
 							</tr>
 						</thead>
@@ -54,11 +60,13 @@
 	load();
 
 	function load() {
+		let xhr = new XMLHttpRequest();
+
 		let empTable = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
 		empTable.innerHTML = "";
-
+		
 		$.ajax({
-			url: "/class/get",
+			url: "/category/get",
 			type: "get",
 			success: function (response) {
 				for (let key in response) {
@@ -66,22 +74,21 @@
 						let val = response[key];
 
 						let NewRow = empTable.insertRow(0); 
-						let classCell = NewRow.insertCell(0); 
-						let studentCell = NewRow.insertCell(1); 
+						let categoryCell = NewRow.insertCell(0); 
+						let followerCell = NewRow.insertCell(1); 
 						let opsiCell = NewRow.insertCell(2); 
 
-						classCell.innerHTML = "<div class='edit' edit_type='click' col_name='class' row_id='"+val['id']+"' method='patch'>"+val['class']+"</div>"; 
-						studentCell.innerHTML = '<span class="badge badge-success" style="text-transform: lowercase;">'+val['user']+' Students</span>';
-						if (val['id'] != 1) {
-							opsiCell.innerHTML = '<button onclick="hapus('+ val['id'] +')" class="btn btn-danger">Hapus</button>';
-						} 
+						categoryCell.innerHTML = "<div class='edit' edit_type='click' col_name='category' row_id='"+val['id']+"'>"+val['category']+"</div>"; 
+						followerCell.innerHTML = '<span class="badge badge-success" style="text-transform: lowercase;">'+val['follower']+' Students</span>'; 
+						opsiCell.innerHTML = '<button onclick="hapus('+ val['id'] +')" class="btn btn-danger">Hapus</button>'; 
+
 					}
 				}
 			}
 		});
 	}
 
-	function hapus(Class) {
+	function hapus(category) {
 		swal({
 			title: "Apakah anda yakin?",
 			text: "Data ini akan dihapus!",
@@ -97,15 +104,13 @@
 		.then((willDelete) => {
 			if (willDelete) {
 				$.ajax({
-					url: "/class/del",
+					url: "/category/del",
 					type: "post",
-					data: {class: Class, _method: 'delete'},
+					data: {category: category},
 					success: function (response) {
 						if (response == 1) {
 							swal("Selamat!", "Data anda berhasil dihapus", "success");
 							load();
-						} else if (response == 2) {
-							$("#pesan").html(swal('Ooops!', 'Data ini tidak boleh dihapus!', 'error'));
 						} else {
 							swal("Ooops", "Data gagal terhapus!", "error");
 						}
@@ -117,46 +122,11 @@
 		});
 	}
 
-	function add(Class) {
-		$.ajax({
-			url: "/class/add",
-			type: "post",
-			data: {class: Class},
-			success: function (response) {
-				if (response == 1) {
-					$("#pesan").html(swal('Wooww!', 'Data berhasil di input!', 'success'));
-					$("#class").val('')
-					load();
-				} else {
-					$("#pesan").html(swal('Ooops!', 'Data gagal di input!', 'error'));
-				}
-			}
-		});
-	}
-
 	$(document).ready(function () {
 
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
-
-		$(".form-group").on('keypress', '#class', function (e) {
-			if(e.keyCode == 13)
-			{
-				let Class = $("#class").val().trim();
-				add(Class);
-			}
-		});
-
-		$("#add").on("click", function () {
-			let Class = $("#class").val().trim();
-
-			if (Class != '') {
-				add(Class);
-			} else {
-				$("#pesan").html(swal('Ooops!', 'Kelas tidak boleh kosong!', 'error'));
 			}
 		});
 
@@ -183,27 +153,26 @@
 			let row_div = $(this).removeAttr('contenteditable').removeClass('form-control');
 
 			let name = row_div.attr('col_name');
-			let method = row_div.attr('method');
 			let val = row_div.html();
+			let id = 'id';
 
 			let arr = {};
 
 			arr[name] = val;
-			arr['id'] = row_id;
-			arr['_method'] = method;
+			arr[id] = row_id;
 
 			$.ajax({
-				url: "/class/edit",
+				url: "/category/edit",
 				type: "post",
 				data: arr,
 				success: function (response) {
 					if (response == 1) {
-						$("#pesan2").html('<div class="alert alert-success">Class berhasil diubah</div>');
+						$("#pesan2").html('<div class="alert alert-success">Category berhasil diubah</div>');
 						setTimeout(function() {
 							$(".alert").alert('close');
 						}, 2000);
 					} else {
-						$("#pesan2").html('<div class="alert alert-danger">Class gagal diubah</div>');
+						$("#pesan2").html('<div class="alert alert-danger">Category gagal diubah</div>');
 						load();
 					}
 				}
@@ -216,7 +185,30 @@
 			{
 				$(this).removeAttr('contenteditable').removeClass('form-control');
 			}
-		})
+		});
+
+		$("#add").on("click", function () {
+			let category = $("#category").val().trim();
+
+			if (category != '') {
+				$.ajax({
+					url: "/category/add",
+					type: "post",
+					data: {category: category},
+					success: function (response) {
+						if (response == 1) {
+							$("#pesan").html(swal('Wooww!', 'Data berhasil di input!', 'success'));
+							$("#category").val('')
+							load();
+						} else {
+							$("#pesan").html(swal('Ooops!', 'Data gagal di input!', 'error'));
+						}
+					}
+				});
+			} else {
+				$("#pesan").html(swal('Ooops!', 'Category tidak boleh kosong!', 'error'));
+			}
+		});
 
 	})
 </script>

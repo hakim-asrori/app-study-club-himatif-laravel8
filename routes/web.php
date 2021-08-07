@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\CategoryController;
 
 
 /*
@@ -50,7 +51,8 @@ Route::put('/password', [ProfileController::class, 'change'])->middleware('otent
 Route::get('/class', [ClassController::class, 'index'])->middleware('otentikasi');
 Route::get('/class/get', [ClassController::class, 'get'])->middleware('otentikasi');
 Route::post('/class/add', [ClassController::class, 'add'])->middleware('otentikasi');
-Route::post('/class/del', [ClassController::class, 'del'])->middleware('otentikasi');
+Route::patch('/class/edit', [ClassController::class, 'edit'])->middleware('otentikasi');
+Route::delete('/class/del', [ClassController::class, 'del'])->middleware('otentikasi');
 
 // Lecturer
 Route::get('/lecturer', [LecturerController::class, 'index'])->middleware('otentikasi');
@@ -58,10 +60,17 @@ Route::get('/lecturer/get', [LecturerController::class, 'get'])->middleware('ote
 Route::get('/lecturer/user', [LecturerController::class, 'user'])->middleware('otentikasi');
 Route::post('/lecturer/add', [LecturerController::class, 'add'])->middleware('otentikasi');
 Route::post('/lecturer/store', [LecturerController::class, 'store'])->middleware('otentikasi');
-Route::post('/lecturer/del', [LecturerController::class, 'del'])->middleware('otentikasi');
+Route::delete('/lecturer/del', [LecturerController::class, 'del'])->middleware('otentikasi');
 
 
 // Student
 Route::get('/student', [StudentController::class, 'index'])->middleware('otentikasi');
 Route::get('/student/get', [StudentController::class, 'get'])->middleware('otentikasi');
 Route::delete('/student', [StudentController::class, 'destroy'])->middleware('otentikasi');
+
+// Category
+Route::get('/category', [CategoryController::class, 'index'])->middleware('otentikasi');
+Route::get('/category/get', [CategoryController::class, 'get'])->middleware('otentikasi');
+Route::post('/category/add', [CategoryController::class, 'add'])->middleware('otentikasi');
+Route::post('/category/edit', [CategoryController::class, 'edit'])->middleware('otentikasi');
+Route::post('/category/del', [CategoryController::class, 'del'])->middleware('otentikasi');

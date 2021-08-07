@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             'id_class' => 1,
             'id_role' => 3,
-            'id_category' => 2,
+            'id_category' => random_int(1, 4),
         ];
     }
 

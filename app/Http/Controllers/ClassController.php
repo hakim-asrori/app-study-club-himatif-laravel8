@@ -44,6 +44,19 @@ class ClassController extends Controller
 		}
 	}
 
+	public function edit(Request $request)
+	{
+		$class = Classes::where('id', $request->id)->update([
+			'class' => $request->class
+		]);
+
+		if ($class) {
+			echo 1;
+		} else {
+			echo 2;
+		}
+	}
+
 	public function del(Request $request)
 	{
 		if ($request->class == 1) {

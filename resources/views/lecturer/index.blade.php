@@ -39,7 +39,7 @@
 			<div class="card-body">
 				<div class="form-group">
 					<label for="mhs">Add lecturer from student</label>
-					<input type="text" id="mhs" name="mhs" class="form-control" placeholder="Input nama/nim mahasiswa">
+					<input type="text" id="mhs" name="mhs" class="form-control" placeholder="Input nama mahasiswa">
 					<input type="hidden" id="nim" class="form-control">
 				</div>
 				<button id="add" class="btn btn-success">Add</button>
@@ -57,7 +57,7 @@
 								<th>Email</th>
 								<th>Class</th>
 								<th>Whatsapp</th>
-								<th>Optional</th>
+								<th>Options</th>
 							</tr>
 						</thead>
 						<tbody></tbody>
@@ -88,8 +88,8 @@
 						let NewRow = empTable.insertRow(0); 
 						let studentCell = NewRow.insertCell(0); 
 						let emailCell = NewRow.insertCell(1); 
-						let waCell = NewRow.insertCell(2); 
-						let classCell = NewRow.insertCell(3); 
+						let classCell = NewRow.insertCell(2); 
+						let waCell = NewRow.insertCell(3); 
 						let opsiCell = NewRow.insertCell(4); 
 
 						studentCell.innerHTML = val['name']; 
@@ -123,7 +123,7 @@
 				$.ajax({
 					url: "/lecturer/del",
 					type: "post",
-					data: {user: user},
+					data: {user: user, _method: 'delete'},
 					success: function (response) {
 						if (response == 1) {
 							swal("Selamat!", "Data anda berhasil dihapus", "success");
@@ -139,6 +139,23 @@
 		});
 	}
 
+	function NEW(email, category) {
+		$.ajax({
+			url: "/lecturer/store",
+			type: "post",
+			data: {email: email, category: category},
+			success: function (response) {
+				if (response == 1) {
+					$("#pesan").html(swal('Wooww!', 'Data berhasil di input!', 'success'));
+					$("#email").val('')
+					load();
+				} else {
+					$("#pesan").html(swal('Ooops!', 'Data gagal di input!', 'error'));
+				}
+			}
+		});
+	}
+
 	$(document).ready(function () {
 
 		$.ajaxSetup({
@@ -147,25 +164,25 @@
 			}
 		});
 
+		$(".form-group").on('keypress', '#email', function (e) {
+			if(e.keyCode == 13)
+			{
+				let email = $("#email").val().trim();
+				let category = $("#category").val().trim();
+				if (email != '') {
+					NEW(email, category);
+				} else {
+					$("#pesan").html(swal('Ooops!', 'Email tidak boleh kosong!', 'error'));
+				}
+			}
+		});
+
 		$("#new").on("click", function () {
 			let email = $("#email").val().trim();
 			let category = $("#category").val().trim();
 
 			if (email != '') {
-				$.ajax({
-					url: "/lecturer/store",
-					type: "post",
-					data: {email: email, category: category},
-					success: function (response) {
-						if (response == 1) {
-							$("#pesan").html(swal('Wooww!', 'Data berhasil di input!', 'success'));
-							$("#email").val('')
-							load();
-						} else {
-							$("#pesan").html(swal('Ooops!', 'Data gagal di input!', 'error'));
-						}
-					}
-				});
+				NEW(email, category);
 			} else {
 				$("#pesan").html(swal('Ooops!', 'Email tidak boleh kosong!', 'error'));
 			}
@@ -192,7 +209,7 @@
 					}
 				});
 			} else {
-				$("#pesan").html(swal('Ooops!', 'nim/nama tidak boleh kosong!', 'error'));
+				$("#pesan").html(swal('Ooops!', 'Nama tidak boleh kosong!', 'error'));
 			}
 		})
 

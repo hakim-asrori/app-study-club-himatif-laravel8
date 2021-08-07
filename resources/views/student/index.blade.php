@@ -4,6 +4,28 @@
 
 @section('content')
 
+<style>
+	.box {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.pagination {
+		margin: 0;
+	}
+
+	.cc {
+		display: flex;
+		justify-content: center;
+	}
+
+	.input-group {
+		width: 33.3%;
+		display: flex;
+	}
+</style>
+
 <div class="row bg-title">
 	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
 		<h4 class="page-title">@yield('title')</h4>
@@ -16,12 +38,17 @@
 	</div>
 </div>
 
-<form action="/student" method="post" id="form">
-	<button class="btn btn-danger m-b-20 btn-delete" type="button">Hapus</button>
-	@csrf
-	@method('delete')
-	<div class="card">
-		<div class="card-body">
+<div class="card">
+	<div class="card-body">
+		<form action="/student" class="cc">
+			<div class="input-group m-b-20">
+				<input type="search" class="form-control" placeholder="Search.." id="search" name="search" value="{{ request('search') }}">
+				<button type="submit" class="btn btn-primary">Search</button>
+			</div>
+		</form>
+		<form action="/student" method="post" id="form">
+			@csrf
+			@method('delete')
 			<div class="table-responsive">
 				<table class="table table-bordered table-hover" id="dataTable">
 					<thead>
@@ -48,12 +75,64 @@
 					</tbody>
 				</table>
 			</div>
-		</div>
+
+			<div class="box m-b-15 m-t-15">
+				<button class="btn btn-danger btn-delete" type="button">Hapus</button>
+				{{ $user->links() }}
+			</div>
+
+			Halaman : {{ $user->currentPage() }} <br/>
+			Jumlah Data : {{ $user->total() }} <br/>
+			Data Per Halaman : {{ $user->perPage() }} <br/>
+
+		</form>
 	</div>
-</form>
+</div>
 
 <script>
+	// load();
+
+	function load() {
+		let empTable = document.getElementById("dataTable").getElementsByTagName("tbody")[0];
+		empTable.innerHTML = "";
+
+		$.ajax({
+			url: "/student/get",
+			type: "get",
+			success: function (response) {
+				for (let key in response) {
+					if (response.hasOwnProperty(key)) {
+						let val = response[key];
+
+						let NewRow = empTable.insertRow(0); 
+						let idCell = NewRow.insertCell(0); 
+						let studentCell = NewRow.insertCell(1); 
+						let nimCell = NewRow.insertCell(2); 
+						let classCell = NewRow.insertCell(3); 
+						let categoryCell = NewRow.insertCell(4); 
+						let waCell = NewRow.insertCell(5); 
+
+						idCell.innerHTML = "<input type='checkbox' name='check[]' value='"+val['id']+"'>"; 
+						studentCell.innerHTML = val['name'];
+						nimCell.innerHTML = val['nim'];
+						classCell.innerHTML = val['class'];
+						categoryCell.innerHTML = val['category'];
+						waCell.innerHTML = val['whatsapp'];
+					}
+				}
+			}
+		});
+	}
+
 	$(document).ready(function(){
+		$("#search").on("keyup", function () {
+			let value = $(this).val().toLowerCase();
+
+			$("tbody tr").filter(function () {
+				$(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+			});
+		});
+
 		$("#check").click(function(){
 			if($(this).is(":checked"))
 				$("[type='checkbox']").prop("checked", true);
@@ -83,9 +162,6 @@
 			});
 		});
 
-		$("#dataTable").DataTable({
-			"ordering": false
-		})
 	});
 </script>
 

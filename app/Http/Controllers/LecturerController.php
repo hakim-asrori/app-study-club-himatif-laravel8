@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 use \App\Models\User;
@@ -54,6 +55,7 @@ class LecturerController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->email),
             'id_role' => 2,
+            'id_class' => 1,
             'id_category' => $request->category
         ]);
 
@@ -66,9 +68,10 @@ class LecturerController extends Controller
 
     public function user(Request $request)
     {
-        $user = User::select('name', 'nim')->where('id_role', 3)->get();
+        $user = User::select('name', 'nim')->where('name', 'like', '%'.$request->term.'%')->where('id_role', 3)->get();
 
         $data = array();
+
         foreach ($user as $u) {
             $data[] = $u->nim . ' - ' . $u->name;
         }
