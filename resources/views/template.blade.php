@@ -57,7 +57,8 @@
 
     <script src="/assets/plugins/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/assets/plugins/sweetalert2/sweetalert.min.js"></script>
-    <script src="/assets/ckeditor/ckeditor.js"></script>
+    <!-- <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js"></script> -->
+    <script src="/assets/tinymce/tinymce.min.js"></script>
     
 </head>
 

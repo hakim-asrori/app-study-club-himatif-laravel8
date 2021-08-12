@@ -43,6 +43,8 @@ class AuthController extends Controller
 				Session::put('email', $data->email);
 				Session::put('id_role', $data->id_role);
 
+				session('email', $data->email);
+
 				return redirect('/dashboard');
 			} else {
 				return redirect('/')->with('message', "<script>Swal.fire('Ooops!', 'Password tidak cocok, harap periksa kembali!', 'error');</script>")->withInput();

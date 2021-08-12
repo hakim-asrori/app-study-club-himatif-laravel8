@@ -4,12 +4,15 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Support\Facades\Session;
 
+use App\Models\User;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LearningController;
 
 
 /*
@@ -35,7 +38,8 @@ Route::get('/dashboard', function () {
 	if (Session::get('id_role')==1) {
 		return view('dashboard.admin');
 	} elseif (Session::get('id_role')==2) {
-		return view('dashboard.lecturer');
+		$user = User::where('email', Session::get('email'))->first();
+		return view('dashboard.lecturer', compact('user'));
 	} else {
 		return view('dashboard.student');
 	}
@@ -74,3 +78,11 @@ Route::get('/category/get', [CategoryController::class, 'get'])->middleware('ote
 Route::post('/category/add', [CategoryController::class, 'add'])->middleware('otentikasi');
 Route::post('/category/edit', [CategoryController::class, 'edit'])->middleware('otentikasi');
 Route::post('/category/del', [CategoryController::class, 'del'])->middleware('otentikasi');
+
+// Material
+Route::resource('learning', LearningController::class)->middleware('otentikasi');
+
+// Laravel File Manager Unisharp
+Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'otentikasi']], function () {
+	\UniSharp\LaravelFilemanager\Lfm::routes();
+});
