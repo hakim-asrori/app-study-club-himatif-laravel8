@@ -58,4 +58,13 @@ class ProfileController extends Controller
 			return redirect('password')->with('message', "<script>swal('Ooops!', 'Password lama anda tidak cocok dengan database!', 'error');</script>");
 		}
 	}
+
+	public function image(Request $request)
+	{
+		User::where('email', Session::get('email'))->update([
+			'image' => $request->image,
+		]);
+
+		return redirect('profile')->with('message', "<script>swal('Wooww!', 'Image anda berhasil diupdate!', 'success');</script>");
+	}
 }

@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="col-lg-2" style="display: flex; justify-content: center">
 				<a href="" data-toggle="modal" data-target="#ubahProfil">
-					<img src="<?= $user->image != 'default.jpg' ? '/assets/img/profile/'.$user->image : '/assets/img/profile/'.$user->image ?>" alt="<?= $user->name ?>" width="150" height="150">
+					<img src="<?= $user->image != 'default.jpg' ? $user->image : '/assets/img/profile/'.$user->image ?>" alt="<?= $user->name ?>" width="150" height="150">
 				</a>
 			</div>
 			<div class="col-lg-10">
@@ -80,11 +80,22 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<form action="/profil/image" method="post" enctype="multipart/form-data">
+			<form action="/profile/image" method="post" enctype="multipart/form-data">
+				@csrf
+				@method('patch')
 				<div class="modal-body">
 					<div class="form-group">
 						<label>Upload Foto</label>
-						<input type="file" name="image" class="form-control" required>
+						<!-- <input type="file" name="image" class="form-control" required> -->
+						<div class="input-group">
+							<span class="input-group-btn">
+								<a id="lfm" data-input="thumbnail" data-preview="holder" class="btn btn-primary">
+									<i class="fa fa-picture-o"></i> Choose
+								</a>
+							</span>
+							<input id="thumbnail" class="form-control" type="text" name="image">
+						</div>
+						<img id="holder" style="margin-top:15px;max-height:100px;">
 					</div>
 				</div>
 				<div class="modal-footer">
@@ -96,8 +107,16 @@
 	</div>
 </div>
 
+<script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
 <script>
 	$(document).ready(function () {
+		$('#lfm').filemanager('image');
+
+		$('#thumbnail').click(function()
+		{
+			$('#lfm').click();
+		});
+
 		$('button[name="simpan"]').on('click', function () {
 			let nama = $('input[name="nama"]').val();
 			let nim = $('input[name="nim"]').val();

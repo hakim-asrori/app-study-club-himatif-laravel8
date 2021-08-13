@@ -71,7 +71,7 @@
     <?php } elseif (Session::get('id_role') == 2) { ?>
         @include('layout.lecturer')
     <?php } else { ?>
-        @include('layout.student');
+        @include('layout.student')
     <?php } ?>
 
     @yield('content')

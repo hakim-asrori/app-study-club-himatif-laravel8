@@ -48,6 +48,7 @@ Route::get('/dashboard', function () {
 // Profile & Password
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('check_log');
 Route::get('/password', [ProfileController::class, 'password'])->middleware('otentikasi');
+Route::patch('/profile/image', [ProfileController::class, 'image'])->middleware('otentikasi');
 Route::patch('/profile', [ProfileController::class, 'update'])->middleware('check_log');
 Route::put('/password', [ProfileController::class, 'change'])->middleware('otentikasi');
 

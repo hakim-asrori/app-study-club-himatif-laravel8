@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title><?= $data['title'] ?> | Study Club TI Polindra</title>
-	<meta charset="UTF-8">
+	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>{{ $data['title'] }} | Study Club TI Polindra</title>
 	<link rel="icon" type="image/png" href="/assets/login/images/icons/favicon.ico"/>
-	<link rel="stylesheet" type="text/css" href="/assets/login/vendor/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="/assets/login/css/util.css"> 
-	<link rel="stylesheet" type="text/css" href="/assets/login/css/main.css">
-	<style>
-		.login100-form-title {
-			padding: 50px 15px;
-		}
-	</style>
-	
+
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+
+	<!-- Styles -->
+	<link rel="stylesheet" href="/assets/css/laravel.css">
+
+	<!-- Scripts -->
 	<script src="/assets/plugins/bower_components/jquery/dist/jquery.min.js"></script>
-	<script src="/assets/login/vendor/bootstrap/js/popper.js"></script> 
-	<script src="/assets/login/vendor/bootstrap/js/bootstrap.min.js"></script> 
+	<script src="/assets/js/laravel.js"></script>
 	<script src="/assets/plugins/sweetalert2/dist/sweetalert2.all.js"></script>
 </head>
 <body>
@@ -24,55 +23,43 @@
 	<?= session('message') ?>
 	@endif
 	<div id="pesan"></div>
-	<div class="limiter">
-		<div class="container-login100">
-			<div class="wrap-login100">
-				<div class="login100-form-title">
-					<span class="login100-form-title-1">
-						Selamat Datang
-					</span>
-				</div>
-				@if ($errors->any())
-				<div class="alert alert-danger">
-					<ul>
-						@foreach ($errors->all() as $error)
-						<li>{{ $error }}</li>
-						@endforeach
-					</ul>
-				</div>
-				@endif
-				<form action="/login" onsubmit="return false;" id="form" method="post">
+	<div class="font-sans text-gray-900 antialiased">
+		<div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+			<div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+				<form method="POST" action="/login" onsubmit="return false;" id="form">
 					@csrf
-					<div class="login100-form validate-form">
-						<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-							<span class="label-input100">Email</span>
-							<input class="input100" type="text" name="email" id="email" placeholder="Enter email" value="{{ old('email') }}">
-							<span class="focus-input100"></span>
-						</div>
+					<div>
+						<label class="block font-medium text-sm text-gray-700" for="email">
+							Email
+						</label>
+						<input  class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" id="email" type="email" name="email" autofocus="autofocus" value="{{ old('email') }}">
+					</div>
 
-						<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-							<span class="label-input100">Password</span>
-							<input class="input100" type="password" name="password" id="password" placeholder="Enter password" minlength="6">
-							<span class="focus-input100"></span>
-						</div>
+					<div class="mt-4">
+						<label class="block font-medium text-sm text-gray-700" for="password">
+							Password
+						</label>
+						<input  class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm block mt-1 w-full" id="password" type="password" name="password" autocomplete="current-password">
+					</div>
 
-						<div class="validate-input m-b-18" style="display: flex; align-items: center">
-							<input type="checkbox" id="look" onclick="lookPass()" class="m-r-10" style="cursor: pointer;">
-							<label for="look" style="cursor: pointer;">Lihat password</label>
-						</div>
+					<div class="mt-4">
+						<input type="checkbox" onclick="lookPass()" id="look" style="cursor: pointer;">
+						<label for="look" style="cursor: pointer;">Lihat password</label>
+					</div>
 
-						<div class="container-login100-form-btn">
-							<button class="login100-form-btn" id="login"> 
-								Sign In
-							</button>
-						</div>
-						<a href="/registration" class="small mt-3">Silahkan sign up bagi yang belum punya akun!</a>
+					<div class="flex items-center justify-end mt-4">
+						<a class="underline text-sm text-gray-600 hover:text-gray-900" href="/registration">
+							Registrasi
+						</a>
+
+						<button class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:shadow-outline-gray disabled:opacity-25 transition ease-in-out duration-150 ml-4" id="login">
+							Login
+						</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-
 	<script>
 		$(document).ready(function () {
 			$("#login").click(function () {
@@ -102,3 +89,4 @@
 	</script>
 </body>
 </html>
+

@@ -47,7 +47,7 @@
                     <a class="nav-toggler open-close waves-effect waves-light hidden-md hidden-lg" href="javascript:void(0)"><i class="fa fa-bars"></i></a>
                 </li>
                 <li class="dropdown">
-                    <a class="profile-pic dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="<?= $user->image != 'default.jpg' ? '/assets/img/profile/'.$user->image : '/assets/img/profile/'.$user->image ?>" alt="user-img" width="36" height="36" class="img-circle"><b class="hidden-xs"><?= $user->name != '' ? $user->name : Session::get('email') ?> </b></a>
+                    <a class="profile-pic dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <img src="<?= $user->image != 'default.jpg' ? $user->image : '/assets/img/profile/'.$user->image ?>" alt="user-img" width="36" height="36" class="img-circle"><b class="hidden-xs"><?= $user->name != '' ? $user->name : Session::get('email') ?> </b></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="/profile">Profil Saya</a>
                         <a class="dropdown-item" href="/password">Ubah Password</a>
