@@ -1,14 +1,8 @@
 @extends('template')
 
-@section('title', 'Add New Learning')
+@section('title', 'Add New Task')
 
 @section('content')
-
-<style>
-	.edit-mode {
-		border: 1px solid black;
-	}
-</style>
 
 <div class="row bg-title">
 	<div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
@@ -17,7 +11,7 @@
 	<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 		<ol class="breadcrumb">
 			<li><a href="/dashboard">Home</a></li>
-			<li><a href="/learning">Learning</a></li>
+			<li><a href="/task">Task</a></li>
 			<li>@yield('title')</li>
 		</ol>
 	</div>
@@ -33,22 +27,40 @@
 </div>
 @endif
 
-<div class="card">
-	<div class="card-body">
-		<form action="/learning" method="post">
-			@csrf
-			<div class="form-group">
-				<label>Title</label>
-				<input type="text" class="form-control" name="title" value="<?= old('title') ?>" required>
+<div class="row">
+	<form action="/task" method="post">
+		<div class="col-lg-8">
+			<div class="card">
+				<div class="card-body">
+					@csrf
+					<div class="form-group">
+						<label>Title</label>
+						<input type="text" class="form-control" name="title" value="<?= old('title') ?>" required>
+					</div>
+					<div class="form-group">
+						<label>Question</label>
+						<textarea name="question" class="form-control my-editor" rows="10"></textarea>
+					</div>
+				</div>
 			</div>
-			<div class="form-group">
-				<label>Material</label>
-				<textarea name="material" class="form-control my-editor" rows="10"></textarea>
+		</div>
+		<div class="col-lg-4">
+			<div class="card">
+				<div class="card-body">
+					<div class="form-group">
+						<label>Start</label>
+						<input type="datetime-local" class="form-control" name="start_at">
+					</div>
+					<div class="form-group">
+						<label>Stop</label>
+						<input type="datetime-local" class="form-control" name="stop_at">
+					</div>
+					<button class="btn btn-success" type="submit">Simpan</button>
+					<a href="/task" class="btn btn-danger">Batal</a>
+				</div>
 			</div>
-			<button class="btn btn-success" type="submit">Simpan</button>
-			<a href="/learning" class="btn btn-danger">Batal</a>
-		</form>
-	</div>
+		</div>
+	</form>
 </div>
 
 <script>
@@ -60,11 +72,11 @@
 		menubar: 'file edit insert format table help',
 		plugins: [
 		"advlist autolink lists link image charmap print preview hr anchor pagebreak",
-		"searchreplace wordcount visualblocks visualchars code fullscreen",
+		"searchreplace wordcount visualblocks visualchars fullscreen",
 		"insertdatetime media nonbreaking save table directionality",
 		"emoticons template textpattern"
 		],
-		toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+		toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
 		file_picker_callback : function(callback, value, meta) {
 			var x = window.innerWidth || document.documentElement.clientWidth || document.getElementsByTagName('body')[0].clientWidth;
 			var y = window.innerHeight|| document.documentElement.clientHeight|| document.getElementsByTagName('body')[0].clientHeight;

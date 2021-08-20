@@ -17,7 +17,7 @@
 	<div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
 		<ol class="breadcrumb">
 			<li><a href="/dashboard">Home</a></li>
-			<li><a href="/dashboard/learning">Learning</a></li>
+			<li><a href="/learning">Learning</a></li>
 			<li>@yield('title')</li>
 		</ol>
 	</div>
@@ -47,7 +47,7 @@
 				<textarea name="material" class="form-control my-editor" rows="10">{!! $learning->material !!}</textarea>
 			</div>
 			<button class="btn btn-success" type="submit">Simpan</button>
-			<a href="/lecturer/materi" class="btn btn-danger">Batal</a>
+			<a href="/learning" class="btn btn-danger">Batal</a>
 		</form>
 	</div>
 </div>
@@ -58,7 +58,7 @@
 		selector: 'textarea.my-editor',
 		relative_urls: false,
 		height: 500,
-		menubar: 'file edit view insert format table help',
+		menubar: 'file edit insert format table help',
 		plugins: [
 		"advlist autolink lists link image charmap print preview hr anchor pagebreak",
 		"searchreplace wordcount visualblocks visualchars code fullscreen",

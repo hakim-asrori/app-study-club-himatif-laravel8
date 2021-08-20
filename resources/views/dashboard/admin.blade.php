@@ -23,7 +23,7 @@
 				<li>
 					<div id="sparklinedash"></div>
 				</li>
-				<li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success" id="peserta"><?= '100' ?></span></li>
+				<li class="text-right"><i class="ti-arrow-up text-success"></i> <span class="counter text-success" id="peserta"><?= $student ?></span></li>
 			</ul>
 		</div>
 	</div>
@@ -34,7 +34,7 @@
 				<li>
 					<div id="sparklinedash2"></div>
 				</li>
-				<li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info" id="pemateri"><?= '100' ?></span></li>
+				<li class="text-right"><i class="ti-arrow-up text-info"></i> <span class="counter text-info" id="pemateri"><?= $lecturer ?></span></li>
 			</ul>
 		</div>
 	</div>
@@ -45,7 +45,7 @@
 				<li>
 					<div id="sparklinedash3"></div>
 				</li>
-				<li class="text-right"><i class="ti-arrow-up text-primary"></i> <span class="counter text-primary" id="study"><?= '100' ?></span></li>
+				<li class="text-right"><i class="ti-arrow-up text-primary"></i> <span class="counter text-primary" id="study"><?= $category ?></span></li>
 			</ul>
 		</div>
 	</div>
@@ -56,7 +56,7 @@
 				<li>
 					<div id="sparklinedash4"></div>
 				</li>
-				<li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple" id="materi"><?= '100' ?></span></li>
+				<li class="text-right"><i class="ti-arrow-up text-purple"></i> <span class="counter text-purple" id="materi"><?= $learning ?></span></li>
 			</ul>
 		</div>
 	</div>
@@ -67,7 +67,7 @@
 				<li>
 					<div id="sparklinedash1"></div>
 				</li>
-				<li class="text-right"><i class="ti-arrow-up text-warning"></i> <span class="counter text-warning" id="tugas"><?= '100' ?></span></li>
+				<li class="text-right"><i class="ti-arrow-up text-warning"></i> <span class="counter text-warning" id="tugas"><?= $task ?></span></li>
 			</ul>
 		</div>
 	</div>

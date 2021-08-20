@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="@yield('title')">
     <meta name="author" content="<?= Session::get('email') ?>">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/plugins/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/himatif.png">
     <title>@yield('title') | Study Club TI Polindra</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

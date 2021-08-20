@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Learning;
+use App\Models\Learning_view;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,15 +19,16 @@ class LearningController extends Controller
      */
     public function index()
     {
+      $user = User::where('email', Session::get('email'))->first();
       if (Session::get('id_role')==1) {
         $learning = Learning::latest()->get();
         return view('learning.admin', compact('learning'));
       } elseif (Session::get('id_role')==2) {
-        $user = User::where('email', Session::get('email'))->first();
         $learning = Learning::where('id_category', $user->id_category)->latest()->get();
         return view('learning.lecturer', compact('learning', 'user'));
       } else {
-        return view('learning.student');
+        $learning = Learning::where('id_category', $user->id_category)->latest()->get();
+        return view('learning.student', compact('learning', 'user'));
       }
     }
 
@@ -75,9 +77,26 @@ class LearningController extends Controller
      */
     public function show($slug)
     {
+      $user = User::where('email', Session::get('email'))->first();
       $learning = Learning::where('slug', $slug)->first();
+
       if ($learning) {
+
+        if (Session::get('id_role')==3) {
+          $learningView = Learning_view::where('id_student', $user->id)->where('id_learning', $learning->id)->count();
+
+          if ($learningView < 1) {
+            Learning_view::create([
+              'id_student' => $user->id,
+              'id_learning' => $learning->id
+            ]);
+
+            User::where('email', Session::get('email'))->update(['skor' => $user->skor + 5]);
+          }
+
+        }
         return view('learning.show', compact('learning'));
+
       } else {
         abort(404);
       }
