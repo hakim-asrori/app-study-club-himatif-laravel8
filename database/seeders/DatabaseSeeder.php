@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\User::factory(50)->create();
 
     	Category::create([
-    		'category' => 'Cyber Security'
+    		'category' => 'Tidak ada kategori'
     	]);
 
     	Category::create([

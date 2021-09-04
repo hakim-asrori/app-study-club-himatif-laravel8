@@ -18,6 +18,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\GoogleController;
 
 
 /*
@@ -33,10 +34,15 @@ use App\Http\Controllers\TaskController;
 
 // Login & Register
 Route::get('/', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index']);
 Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/registration', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/registration', [AuthController::class, 'store']);
+
+// Google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
 
 // Dashboard
 Route::get('/dashboard', function () {

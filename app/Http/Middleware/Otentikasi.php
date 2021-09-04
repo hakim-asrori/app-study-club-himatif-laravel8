@@ -24,7 +24,7 @@ class Otentikasi
 
         $user = User::where('email', Session::get('email'))->first();
         
-        if ($user->nim == '' && $user->id_class == '') {
+        if ($user->nim == '') {
             return redirect('profile');
         }
 

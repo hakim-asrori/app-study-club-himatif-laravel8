@@ -30,7 +30,16 @@
 					<img src="/assets/img/himatif.png" width="200">
 				</a>
 			</div>
-			<div class="w-full sm:max-w-md mt-6 mb-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+			@if ($errors->any())
+			<div class="bg-red-400 text-white px-3 py-2 mt-6">
+				<ul>
+					@foreach ($errors->all() as $error)
+					<li>{{ $error }}</li>
+					@endforeach
+				</ul>
+			</div>
+			@endif
+			<div class="w-full sm:max-w-md mt-3 mb-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
 				<form method="POST" action="/registration" onsubmit="return false;" id="form">
 					@csrf
 					<div>

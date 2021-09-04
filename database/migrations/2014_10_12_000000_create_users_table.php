@@ -20,10 +20,11 @@ class CreateUsersTable extends Migration
             $table->string('whatsapp')->nullable();
             $table->foreignId('id_class')->nullable();
             $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->string('image')->default('default.jpg');
-            $table->integer('id_role');
-            $table->integer('id_category');
+            $table->integer('id_role')->default(3);
+            $table->integer('id_category')->default(1);
             $table->integer('skor')->nullable();
             $table->timestamps();
         });
