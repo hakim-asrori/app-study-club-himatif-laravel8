@@ -2,22 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class User extends Authenticatable
 {
-	use HasFactory;
+    use HasFactory;
 
-	protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $guarded = ['id', 'created_at', 'updated_at'];
 
-	public function classes()
-	{
-		return $this->hasOne(Classes::class, 'id', 'id_class');
-	}
+    protected $hidden = [
+        'password',
+    ];
 
-	public function category()
-	{
-		return $this->hasOne(Category::class, 'id', 'id_category');
-	}
+    public function classes()
+    {
+        return $this->hasOne(Classes::class, 'id', 'id_class');
+    }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class, 'id', 'id_category');
+    }
 }

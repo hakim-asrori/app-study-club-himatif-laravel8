@@ -18,29 +18,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(50)->create();
-
-    	Category::create([
-    		'category' => 'Tidak ada kategori'
-    	]);
-
-    	Category::create([
-    		'category' => 'Web Programming'
-    	]);
-
-    	Category::create([
-    		'category' => 'Mobile Programming'
-    	]);
-
-    	Category::create([
-    		'category' => 'Desain UI/UX'
-    	]);
-
-        Classes::create([
-            'id' => 0,
-            'class' => 'Tidak ada kelas'
-        ]);
-
         User::create([
             'name' => 'Hakim Asrori',
             'nim' => '2003071',
@@ -49,6 +26,29 @@ class DatabaseSeeder extends Seeder
             'id_role' => 1,
             'id_category' => 2,
             'id_class' => 1
+        ]);
+
+        \App\Models\User::factory(5)->create();
+
+        Category::create([
+            'category' => 'Tidak ada kategori'
+        ]);
+
+        Category::create([
+            'category' => 'Web Programming'
+        ]);
+
+        Category::create([
+            'category' => 'Mobile Programming'
+        ]);
+
+        Category::create([
+            'category' => 'Desain UI/UX'
+        ]);
+
+        Classes::create([
+            'id' => 0,
+            'class' => 'Tidak ada kelas'
         ]);
     }
 }

@@ -20,10 +20,10 @@ class TaskController extends Controller
     public function index()
     {
         $user = User::where('email', Session::get('email'))->first();
-        if (Session::get('id_role')==1) {
+        if (Session::get('id_role') == 1) {
             $task = Task::latest()->get();
             return view('task.admin', compact('task'));
-        } elseif (Session::get('id_role')==2) {
+        } elseif (Session::get('id_role') == 2) {
             $task = Task::where('id_lecturer', $user->id)->latest()->get();
             return view('task.lecturer', compact('task', 'user'));
         } else {
@@ -87,12 +87,12 @@ class TaskController extends Controller
             if (date('d-m-Y H:i', strtotime($task->stop_at)) <= date('d-m-Y H:i')) {
                 $pesan = '<div class="alert alert-danger">Tugas sudah ditutup</div>';
             } elseif (date('d-m-Y H:i', strtotime($task->created_at)) <= date('d-m-Y H:i')) {
-                $pesan = '<div class="alert alert-success">Tugas sedang berjalan</div>';   
+                $pesan = '<div class="alert alert-success">Tugas sedang berjalan</div>';
             } else {
-                $pesan = '<div class="alert alert-warning">Tugas belum dibuka</div>';   
+                $pesan = '<div class="alert alert-warning">Tugas belum dibuka</div>';
             }
 
-            if (Session::get('id_role')==3) {
+            if (Session::get('id_role') == 3) {
                 $taskView = Task_view::where('id_student', $user->id)->where('id_task', $task->id)->count();
 
                 if ($taskView < 1) {
@@ -103,7 +103,6 @@ class TaskController extends Controller
 
                     User::where('email', Session::get('email'))->update(['skor' => $user->skor + 5]);
                 }
-
             }
             return view('task.show', compact('task', 'user', 'pesan'));
         } else {
